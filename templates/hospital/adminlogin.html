@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load widget_tweaks static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Rifat Hospital Management System</title>
+
+
+  <link rel="stylesheet" href="{% static 'role_pages.css' %}">
+</head>
+
+<body>
+  {% include "hospital/navbar.html" %}
+  <main class="role-auth role-auth--admin">
+    <div class="role-auth-stack">
+      <form class="role-auth__card" method="post">
+        {% csrf_token %}
+        <header class="role-auth__visual">
+          <div>
+            <h1>Admin sign in</h1>
+            <p>Secure access to hospital administration</p>
+          </div>
+        </header>
+        <div class="role-auth__content">
+          <div class="form-group">
+            {% render_field form.username class="form-control" placeholder="Username" autocomplete="username" %}
+          </div>
+          <div class="form-group">
+            {% render_field form.password class="form-control" placeholder="Password" autocomplete="current-password" %}
+          </div>
+          <button type="submit" class="btnSubmit">Login</button>
+          <p class="role-auth__signup">Do not have an account? <a href="/adminsignup">Sign up here</a></p>
+        </div>
+      </form>
+      {% include "hospital/role_help_strip.html" with workspace_title="Administration tools" workspace_description="Access hospital records and management features." %}
+    </div>
+  </main>
+
+  <!--
+  developed By : sumit kumar
+  facebook :  fb.com/
+  youtube : youtube.com/lazycoders
+  -->
+
+</body>
+
+</html>

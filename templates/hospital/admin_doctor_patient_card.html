@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<style>
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 16px;
+  }
+
+  .role-card {
+    display: block;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 14px #0002;
+    color: #17324d;
+    text-align: center;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .role-card:hover {
+    color: #17324d;
+    text-decoration: none;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px #0003;
+  }
+
+  .role-card img {
+    display: block;
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+  }
+
+  .role-card span {
+    display: block;
+    padding: 14px;
+    font-weight: 700;
+  }
+</style>
+
+<div class="role-grid">
+  <a class="role-card" href="/adminclick">
+    <img src="{% static 'images/admin.png' %}" alt="Admin">
+    <span>ADMIN</span>
+  </a>
+
+  <a class="role-card" href="/doctorclick">
+    <img src="{% static 'images/doctor.png' %}" alt="Doctor">
+    <span>DOCTOR</span>
+  </a>
+
+  <a class="role-card" href="/patientclick">
+    <img src="{% static 'images/patient.jpg' %}" alt="Patient">
+    <span>PATIENT</span>
+  </a>
+</div>

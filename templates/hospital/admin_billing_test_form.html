@@ -1,0 +1,15 @@
+{% extends 'hospital/admin_base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>{% if test %}Update diagnostic test{% else %}Add diagnostic test{% endif %}</h2>
+  <p>Enter the verified hospital price in BDT. Patients can only view active tests.</p>
+  <form method="post" class="card card-body">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+      <button class="btn btn-primary" type="submit">Save test</button>
+      <a class="btn btn-secondary" href="{% url 'admin-billing' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock content %}

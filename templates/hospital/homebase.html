@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Rifat Hospital Management System</title>
+  <link rel="stylesheet" href="{% static 'role_pages.css' %}">
+
+</head>
+
+<body>
+  {% include "hospital/navbar.html" %}
+  {%block content%}
+
+  {%endblock content%}
+  {% block page_footer %}{% endblock page_footer %}
+</body>
+
+
+</html>

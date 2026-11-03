@@ -1,0 +1,99 @@
+{% extends 'hospital/admin_base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Diagnostic billing</h2>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="mb-4">
+    <a class="btn btn-primary" href="{% url 'admin-billing-test' %}">Add diagnostic test</a>
+    <a class="btn btn-success" href="{% url 'admin-create-invoice' %}">Create patient invoice</a>
+  </div>
+
+  <h3>Test catalog and prices</h3>
+  <div class="alert alert-warning">
+    Seeded catalog prices are DEMO estimates only, not official or guaranteed hospital prices.
+    Verify each price and edit it before using it for actual billing.
+    To load the initial catalog, run <code>python manage.py seed_diagnostic_tests</code>.
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead><tr><th>Test</th><th>Category</th><th>Price (BDT)</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        {% for test in tests %}
+          <tr>
+            <td>{{ test.name }}</td>
+            <td>{{ test.category }}</td>
+            <td>{{ test.price }}</td>
+            <td>{% if test.is_active %}Active{% else %}Inactive{% endif %}</td>
+            <td><a href="{% url 'admin-billing-test-edit' test.pk %}">Edit</a></td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5">No tests have been added. Enter your verified prices to start.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="mt-5">Recent invoices</h3>
+  <p>Digital payment references must be checked against the provider by staff before recording payment. A patient-submitted reference does not mark an invoice paid.</p>
+  <form method="get" class="form-row align-items-end mb-3">
+    <div class="col-md-6 mb-2">
+      <label for="invoice-search">Find patient or payment reference</label>
+      <input id="invoice-search" type="search" name="q" value="{{ search_query }}" class="form-control" placeholder="Patient name, username, or reference">
+    </div>
+    <div class="col-md-3 mb-2">
+      <label for="invoice-status">Payment status</label>
+      <select id="invoice-status" name="status" class="form-control">
+        <option value="">All statuses</option>
+        <option value="Unpaid" {% if status_filter == 'Unpaid' %}selected{% endif %}>Unpaid</option>
+        <option value="Paid" {% if status_filter == 'Paid' %}selected{% endif %}>Paid</option>
+      </select>
+    </div>
+    <div class="col-md-3 mb-2">
+      <button class="btn btn-primary" type="submit">Filter invoices</button>
+      <a class="btn btn-secondary" href="{% url 'admin-billing' %}">Clear</a>
+    </div>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead><tr><th>Invoice</th><th>Patient</th><th>Items</th><th>Total (BDT)</th><th>Status</th><th>Record payment</th></tr></thead>
+      <tbody>
+        {% for invoice in invoices %}
+          <tr>
+            <td><a href="{% url 'admin-invoice-detail' invoice.pk %}">#{{ invoice.pk }}</a><br>{{ invoice.created_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ invoice.patient.get_name }}</td>
+            <td>{% for item in invoice.items.all %}{{ item.test_name }} × {{ item.quantity }}<br>{% endfor %}</td>
+            <td>{{ invoice.total_amount }}</td>
+            <td>{{ invoice.payment_status }}{% if invoice.payment_method %} ({{ invoice.payment_method }}){% endif %}</td>
+            <td>
+              {% if invoice.transaction_id %}
+                <p>Submitted reference: {{ invoice.transaction_id }}</p>
+              {% endif %}
+              {% if invoice.payment_status == 'Unpaid' %}
+                <form method="post" action="{% url 'admin-record-invoice-payment' invoice.pk %}">
+                  {% csrf_token %}
+                  <select name="payment_method" class="form-control mb-2" required>
+                    <option value="">Select method</option>
+                    <option value="Cash" {% if invoice.payment_method == 'Cash' %}selected{% endif %}>Cash</option>
+                    <option value="bKash" {% if invoice.payment_method == 'bKash' %}selected{% endif %}>bKash</option>
+                    <option value="Nagad" {% if invoice.payment_method == 'Nagad' %}selected{% endif %}>Nagad</option>
+                    <option value="Upay" {% if invoice.payment_method == 'Upay' %}selected{% endif %}>Upay</option>
+                  </select>
+                  <input type="text" name="transaction_id" maxlength="100" class="form-control mb-2" value="{{ invoice.transaction_id }}" placeholder="Verified digital reference (if applicable)">
+                  <button class="btn btn-sm btn-primary" type="submit">Confirm payment</button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="6">No invoices yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

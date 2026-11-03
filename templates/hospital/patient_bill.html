@@ -1,0 +1,45 @@
+{% extends 'hospital/patient_base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Diagnostic test prices</h2>
+  <div class="alert alert-warning">
+    Catalog prices marked DEMO estimate are sample values only, not official or guaranteed hospital prices.
+    Confirm the current price with the hospital billing desk before testing or paying.
+  </div>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead><tr><th>Test</th><th>Category</th><th>Price (BDT, DEMO estimate)</th></tr></thead>
+      <tbody>
+        {% for test in tests %}
+          <tr><td>{{ test.name }}</td><td>{{ test.category }}</td><td>{{ test.price }}</td></tr>
+        {% empty %}
+          <tr><td colspan="3">No diagnostic tests are currently listed.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="mt-5">My invoices</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead><tr><th>Invoice</th><th>Date</th><th>Total (BDT)</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        {% for invoice in invoices %}
+          <tr>
+            <td>#{{ invoice.pk }}</td>
+            <td>{{ invoice.created_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ invoice.total_amount }}</td>
+            <td>{{ invoice.payment_status }}</td>
+            <td>
+              <a href="{% url 'patient-invoice-detail' invoice.pk %}">View details</a>
+              <a class="btn btn-sm btn-outline-primary" href="{% url 'patient-invoice-download' invoice.pk %}">Download PDF</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5">You do not have any diagnostic invoices yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

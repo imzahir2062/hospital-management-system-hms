@@ -1,0 +1,21 @@
+{% extends 'hospital/homebase.html' %}
+
+{% block content %}
+
+<main class="role-entry-page role-entry-page--doctor">
+  <div class="role-entry-stack">
+    <section class="role-entry">
+      <h1 class="display-4 text-center">Hello, Doctor</h1>
+      <p class="lead text-center">Welcome to Hospital Management System.</p>
+      <hr class="my-4">
+      <p class="text-center">You can access various features after Login/SignUp.</p>
+      <div class="role-actions">
+        <a class="role-action" href="/doctorsignup" role="button">Apply</a>
+        <a class="role-action" href="/doctorlogin" role="button">Login</a>
+      </div>
+    </section>
+    {% include "hospital/role_help_strip.html" with workspace_title="Clinical workspace" workspace_description="Continue to your doctor portal and patient-care tools." %}
+  </div>
+</main>
+
+{% endblock content %}

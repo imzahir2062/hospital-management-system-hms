@@ -1,0 +1,320 @@
+.role-entry-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: calc(100vh - 56px);
+  margin-top: 56px;
+  padding: 40px 24px;
+  background-color: #163a52;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  isolation: isolate;
+}
+
+.role-entry-page::before {
+  position: absolute;
+  z-index: -1;
+  background: linear-gradient(120deg, rgba(7, 37, 58, 0.78), rgba(7, 37, 58, 0.3));
+  content: "";
+  inset: 0;
+}
+
+.role-entry-page--admin {
+  background-image: url("images/admin.png");
+}
+
+.role-entry-page--doctor {
+  background-image: url("images/doctor.png");
+}
+
+.role-entry-page--patient {
+  background-image:
+    radial-gradient(ellipse at 18% 22%, rgba(233, 255, 247, 0.94), transparent 42%),
+    radial-gradient(ellipse at 82% 78%, rgba(164, 228, 222, 0.9), transparent 48%),
+    linear-gradient(135deg, #70bfc5, #b9e8e2 54%, #8ecbd7);
+}
+
+.role-entry-page--patient::before {
+  background: linear-gradient(120deg, rgba(13, 69, 83, 0.16), rgba(13, 69, 83, 0.04));
+}
+
+.role-entry {
+  width: min(100%, 860px);
+  padding: clamp(28px, 5vw, 56px);
+  border: 1px solid #dce7f0;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 22px 60px rgba(8, 29, 45, 0.3);
+}
+
+.role-entry-stack {
+  display: grid;
+  width: min(100%, 860px);
+  gap: 18px;
+}
+
+.role-entry-stack .role-entry {
+  width: 100%;
+}
+
+.role-help {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.role-help__item {
+  min-height: 108px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 16px;
+  background: rgba(248, 252, 255, 0.94);
+  box-shadow: 0 10px 24px rgba(8, 29, 45, 0.15);
+}
+
+.role-help__item h2 {
+  margin: 0 0 6px;
+  color: #12324a;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.role-help__item p {
+  margin: 0;
+  color: #526b7d;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.role-help__item a {
+  color: #0879b8;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.role-entry h1 {
+  margin-bottom: 20px;
+  color: #12324a;
+  font-weight: 700;
+}
+
+.role-entry .lead,
+.role-entry p {
+  color: #526b7d;
+}
+
+.role-entry .role-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px 0 0;
+}
+
+.role-action,
+.role-auth .btnSubmit {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0879b8, #075e91);
+  box-shadow: 0 8px 18px rgba(7, 94, 145, 0.2);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.25;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.role-action:hover,
+.role-action:focus,
+.role-auth .btnSubmit:hover,
+.role-auth .btnSubmit:focus {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #09699f, #064d78);
+  box-shadow: 0 12px 24px rgba(7, 94, 145, 0.28);
+  color: #fff;
+  text-decoration: none;
+}
+
+.role-action:focus-visible,
+.role-auth .btnSubmit:focus-visible,
+.role-auth a:focus-visible {
+  outline: 3px solid #f2b84b;
+  outline-offset: 3px;
+}
+
+.role-auth {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: calc(100vh - 56px);
+  margin-top: 56px;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #163a52;
+  background-position: center;
+  background-size: cover;
+  color: #17364b;
+  font-family: "Segoe UI", Arial, sans-serif;
+  isolation: isolate;
+  position: relative;
+}
+
+.role-auth::before {
+  position: absolute;
+  z-index: -1;
+  background: linear-gradient(120deg, rgba(7, 37, 58, 0.8), rgba(7, 37, 58, 0.42));
+  content: "";
+  inset: 0;
+}
+
+.role-auth--admin {
+  background-image: url("images/admin.png");
+}
+
+.role-auth--doctor {
+  background-image: url("images/doctor.png");
+}
+
+.role-auth--patient {
+  background-image:
+    radial-gradient(ellipse at 18% 22%, rgba(233, 255, 247, 0.94), transparent 42%),
+    radial-gradient(ellipse at 82% 78%, rgba(164, 228, 222, 0.9), transparent 48%),
+    linear-gradient(135deg, #70bfc5, #b9e8e2 54%, #8ecbd7);
+}
+
+.role-auth--patient::before {
+  background: linear-gradient(120deg, rgba(13, 69, 83, 0.16), rgba(13, 69, 83, 0.04));
+}
+
+.role-auth-stack {
+  display: grid;
+  width: min(100%, 760px);
+  gap: 18px;
+}
+
+.role-auth__card {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #d9e6ee;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 22px 60px rgba(18, 52, 77, 0.16);
+}
+
+.role-auth__visual {
+  display: flex;
+  min-height: 210px;
+  align-items: end;
+  padding: 28px 36px;
+  background-color: #14577a;
+  background-position: center 38%;
+  background-size: cover;
+}
+
+.role-auth__visual h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.7rem, 4vw, 2.25rem);
+  font-weight: 700;
+}
+
+.role-auth__visual p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.role-auth__content {
+  min-height: 290px;
+  padding: 36px;
+}
+
+.role-auth__content .form-group {
+  margin-bottom: 20px;
+}
+
+.role-auth__content .form-control {
+  min-height: 50px;
+  padding: 12px 16px;
+  border: 1px solid #ccdae4;
+  border-radius: 10px;
+  background: #fbfdff;
+  color: #17364b;
+  box-shadow: none;
+}
+
+.role-auth__content .form-control:focus {
+  border-color: #1684b8;
+  box-shadow: 0 0 0 3px rgba(22, 132, 184, 0.15);
+}
+
+.role-auth .btnSubmit {
+  width: 100%;
+  cursor: pointer;
+}
+
+.role-auth__signup {
+  margin: 22px 0 0;
+  color: #5b7181;
+  text-align: center;
+}
+
+.role-auth__signup a {
+  color: #0879b8;
+  font-weight: 650;
+}
+
+@media (max-width: 575px) {
+  .role-entry-page {
+    min-height: calc(100vh - 56px);
+    padding: 28px 16px;
+  }
+
+  .role-help {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .role-help__item {
+    min-height: 0;
+  }
+
+  .role-entry {
+    border-radius: 18px;
+  }
+
+  .role-auth {
+    min-height: calc(100vh - 56px);
+    padding: 32px 14px;
+  }
+
+  .role-auth-stack {
+    gap: 12px;
+  }
+
+  .role-auth__visual {
+    min-height: 176px;
+    padding: 24px;
+  }
+
+  .role-auth__content {
+    min-height: 0;
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role-action,
+  .role-auth .btnSubmit {
+    transition: none;
+  }
+}

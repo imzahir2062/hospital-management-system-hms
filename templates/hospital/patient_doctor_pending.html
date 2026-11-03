@@ -1,0 +1,51 @@
+{% extends 'hospital/patient_base.html' %}
+
+{% block content %}
+<style>
+  .pending-card {
+    max-width: 700px;
+    margin: 45px auto;
+    padding: 38px 28px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f0fdfa, #eff6ff);
+    box-shadow: 0 12px 35px #0f172a18;
+    text-align: center;
+    color: #17324d;
+  }
+
+  .pending-icon {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #d1fae5;
+    color: #059669;
+    font-size: 34px;
+  }
+
+  .pending-card h2 { font-weight: 700; }
+  .pending-card p { color: #526579; line-height: 1.7; }
+  .pending-status {
+    display: inline-block;
+    margin: 8px 0 18px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 600;
+  }
+</style>
+
+<div class="pending-card">
+  <div class="pending-icon"><i class="fa fa-user-md"></i></div>
+  <h2>Welcome, {{ request.user.first_name|default:"there" }}!</h2>
+  <div class="pending-status">Doctor assignment in progress</div>
+
+  <p>Your patient account is active. Our reception team still needs to assign
+     a doctor to your profile.</p>
+  <p>Once assigned, your doctor’s details and care information will appear here.
+     Please contact hospital reception if you need help.</p>
+</div>
+{% endblock content %}

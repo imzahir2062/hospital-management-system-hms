@@ -1,0 +1,44 @@
+{% extends 'hospital/admin_base.html' %}
+{% block content %}
+<style>
+  @media print {
+    .menu, .navbar, .no-print, footer { display: none !important; }
+    body { padding-left: 0 !important; }
+    main { height: auto !important; }
+  }
+</style>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h2>Invoice #{{ invoice.pk }}</h2>
+      <p class="mb-0">Created {{ invoice.created_at|date:"Y-m-d H:i" }} by {{ invoice.created_by.get_full_name|default:invoice.created_by.username|default:"Staff" }}</p>
+    </div>
+    <div class="no-print">
+      <button class="btn btn-outline-primary" type="button" onclick="window.print()">Print</button>
+      <a class="btn btn-secondary" href="{% url 'admin-billing' %}">Back to billing</a>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <h4>Patient</h4>
+      <p>{{ invoice.patient.get_name }}<br>{{ invoice.patient.mobile }}<br>{{ invoice.patient.address }}</p>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead><tr><th>Diagnostic test</th><th>Unit price (BDT)</th><th>Quantity</th><th>Subtotal (BDT)</th></tr></thead>
+          <tbody>
+            {% for item in invoice.items.all %}
+              <tr><td>{{ item.test_name }}</td><td>{{ item.unit_price }}</td><td>{{ item.quantity }}</td><td>{{ item.line_total }}</td></tr>
+            {% endfor %}
+          </tbody>
+          <tfoot><tr><th colspan="3" class="text-right">Total</th><th>{{ invoice.total_amount }}</th></tr></tfoot>
+        </table>
+      </div>
+      <p><strong>Status:</strong> {{ invoice.payment_status }}{% if invoice.payment_method %} — {{ invoice.payment_method }}{% endif %}</p>
+      {% if invoice.transaction_id %}<p><strong>Submitted reference:</strong> {{ invoice.transaction_id }}</p>{% endif %}
+      {% if invoice.payment_status == 'Unpaid' %}
+        <p>Use the billing list to record payment only after receiving cash or verifying the digital transaction.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

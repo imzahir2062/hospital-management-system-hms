@@ -1,0 +1,15 @@
+{% extends 'hospital/admin_base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Create diagnostic invoice</h2>
+  <p>Select one or more tests. The entered quantity applies to each selected test; totals are calculated from catalog prices and the invoice starts unpaid.</p>
+  <form method="post" class="card card-body">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div>
+      <button class="btn btn-primary" type="submit">Create invoice</button>
+      <a class="btn btn-secondary" href="{% url 'admin-billing' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock content %}

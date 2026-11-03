@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Helvetica, Arial, sans-serif; color: #222; font-size: 12px; }
+    h1 { color: #24527a; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #bbb; padding: 8px; text-align: left; }
+    th { background: #eaf0f5; }
+    .total { text-align: right; font-weight: bold; }
+    .note { margin-top: 20px; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Hospital Diagnostic Invoice</h1>
+  <p>Invoice: #{{ invoice.pk }}<br>
+     Date: {{ invoice.created_at|date:"Y-m-d H:i" }}<br>
+     Patient: {{ patient.get_name }}<br>
+     Status: {{ invoice.payment_status }}
+     {% if invoice.payment_method %}<br>Payment method: {{ invoice.payment_method }}{% endif %}
+  </p>
+  <table>
+    <thead>
+      <tr><th>Test</th><th>Unit price (BDT)</th><th>Quantity</th><th>Subtotal (BDT)</th></tr>
+    </thead>
+    <tbody>
+      {% for item in invoice.items.all %}
+        <tr>
+          <td>{{ item.test_name }}</td>
+          <td>{{ item.unit_price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.line_total }}</td>
+        </tr>
+      {% endfor %}
+      <tr><td class="total" colspan="3">Total</td><td><strong>{{ invoice.total_amount }}</strong></td></tr>
+    </tbody>
+  </table>
+  {% if invoice.payment_status == 'Unpaid' %}
+    <p class="note">This invoice is unpaid. Payment is recorded only after hospital staff confirms receipt.</p>
+  {% endif %}
+</body>
+</html>
